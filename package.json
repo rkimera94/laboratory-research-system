@@ -4,11 +4,12 @@
   "description": "lab_system",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "nodemon app.js"
   },
   "author": "rkimera",
   "license": "ISC",
   "dependencies": {
+    "express": "^4.17.1",
     "nodemon": "^2.0.6"
   }
 }
