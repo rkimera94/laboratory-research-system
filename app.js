@@ -1,6 +1,42 @@
 const express = require("express");
+require("dotenv").config();
+const mongoose = require("mongoose");
 const app = express();
 
+/**
+ * initialize mangoDB
+ *
+ * */
+
+// local connection
+/*
+mongoose
+  .connect("mongodb://localhost:27017/tutorial_db", {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => {
+    console.log("mongodb connected.......");
+  });
+  */
+
+//connecting to the online server
+//mongoose.connect();
+//mongodb+srv://rkimera94:<password>@cluster0.f8q5u.mongodb.net/<dbname>?retryWrites=true&w=majority
+mongoose
+  .connect(
+    "mongodb+srv://cluster0.f8q5u.mongodb.net/test?retryWrites=true&w=majority/lab_system_db",
+    {
+      dbName: "lab_system_db",
+      user: process.env.MONGO_DB_NAME,
+      pass: process.env.MONGO_DB_PASSWORD,
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    }
+  )
+  .then(() => {
+    console.log("mongodb connected.......");
+  });
 const ReagentsRoute = require("./Routes/ReagentsRoute");
 
 app.use("/reagents", ReagentsRoute);
