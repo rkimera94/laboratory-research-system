@@ -1,0 +1,14 @@
+{
+  "name": "lab_system",
+  "version": "1.0.0",
+  "description": "lab_system",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "rkimera",
+  "license": "ISC",
+  "dependencies": {
+    "nodemon": "^2.0.6"
+  }
+}
