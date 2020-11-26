@@ -2,12 +2,26 @@ const express = require("express");
 const router = express.Router();
 const Reagent = require("../models/reagentsModel");
 
-router.get("/", (req, res, next) => {
-  res.send("NDA store");
+router.get("/", async (req, res, next) => {
+  try {
+    const result = await Reagent.find({}, { __v: 0 });
+    // __name:1 fields to be in te results
+    res.send(result);
+  } catch (error) {
+    console.log(error.message);
+  }
 });
 
-router.post("/", (req, res, next) => {
-  console.log(req.body);
+router.post("/", async (req, res, next) => {
+  try {
+    const reagent = new Reagent(req.body);
+    const result = await reagent.save();
+    res.send(result);
+  } catch (error) {
+    console.log(error.message);
+  }
+
+  /* the promise method
   const reagent = new Reagent({
     reagent_name: req.body.reagent_name,
     reagent_manufacturer: req.body.reagent_manufacturer,
@@ -24,17 +38,31 @@ router.post("/", (req, res, next) => {
     .catch((err) => {
       console.log(err.message);
     });
+    */
 });
 
-router.get("/:id", (req, res, next) => {
-  res.send("fetch reagent by id");
+router.get("/:id", async (req, res, next) => {
+  const id = req.params.id;
+  try {
+    const reagent = await Reagent.findById(id);
+    // or findone() method
+    res.send(reagent);
+  } catch (error) {
+    console.log(error.message);
+  }
 });
 
 router.patch("/:id", (req, res, next) => {
   res.send("updated reagent by id");
 });
 
-router.delete("/:id", (req, res, next) => {
-  res.send("deleted reagent by id");
+router.delete("/:id", async (req, res, next) => {
+  const id = req.params.id;
+  try {
+    const result = await Reagent.findByIdAndDelete(id);
+    res.send(result);
+  } catch (error) {
+    console.log(error.message);
+  }
 });
 module.exports = router;
