@@ -28,16 +28,13 @@ mongoose
 //mongoose.connect();
 //mongodb+srv://rkimera94:<password>@cluster0.f8q5u.mongodb.net/<dbname>?retryWrites=true&w=majority
 mongoose
-  .connect(
-    "mongodb+srv://cluster0.f8q5u.mongodb.net/test?retryWrites=true&w=majority/lab_system_db",
-    {
-      dbName: "lab_system_db",
-      user: process.env.MONGO_DB_NAME,
-      pass: process.env.MONGO_DB_PASSWORD,
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    }
-  )
+  .connect("mongodb+srv://cluster0.f8q5u.mongodb.net/", {
+    dbName: "lab_system_db",
+    user: process.env.MONGO_DB_NAME,
+    pass: process.env.MONGO_DB_PASSWORD,
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
   .then(() => {
     console.log("mongodb connected.......");
   })
