@@ -3,6 +3,10 @@ require("dotenv").config();
 const mongoose = require("mongoose");
 const app = express();
 
+/// middleware
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
 /**
  * initialize mangoDB
  *
@@ -40,6 +44,16 @@ mongoose
   .catch((err) => console.log(err));
 
 //register routes
+//for handling all routes GET,POST,ETC...
+app.all("/test", (req, res) => {
+  console.log(req.query);
+  res.send(req.query);
+});
+
+app.all("/test/:id", (req, res) => {
+  console.log(req.params);
+  res.send(req.params);
+});
 const ReagentsRoute = require("./Routes/ReagentsRoute");
 
 app.use("/reagents", ReagentsRoute);
