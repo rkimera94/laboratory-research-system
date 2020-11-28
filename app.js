@@ -1,6 +1,7 @@
 const express = require("express");
 require("dotenv").config();
 const mongoose = require("mongoose");
+const createError = require("http-errors");
 const app = express();
 
 /// middleware
@@ -66,9 +67,10 @@ app.use((req, res, next) => {
 
 // using express error handlers
 app.use((req, res, next) => {
-  const err = new Error("NOT FOUND");
-  err.status = 404;
-  next(err);
+  // const err = new Error("NOT FOUND");
+  // err.status = 404;
+  // next(err);
+  next(createError(404, "Not Found"));
 });
 
 // Error handler
