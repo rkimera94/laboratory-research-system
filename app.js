@@ -7,6 +7,8 @@ const app = express();
 /// middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+// variable
+const PORT = process.env.PORT || 3040;
 
 /**
  * initialize mangoDB
@@ -29,8 +31,8 @@ mongoose
 //mongoose.connect();
 //mongodb+srv://rkimera94:<password>@cluster0.f8q5u.mongodb.net/<dbname>?retryWrites=true&w=majority
 mongoose
-  .connect("mongodb+srv://cluster0.f8q5u.mongodb.net/", {
-    dbName: "lab_system_db",
+  .connect(process.env.MONGO_DB_URL, {
+    dbName: process.env.DB_USER,
     user: process.env.MONGO_DB_NAME,
     pass: process.env.MONGO_DB_PASSWORD,
     useNewUrlParser: true,
@@ -84,6 +86,6 @@ app.use((err, req, res, next) => {
   });
 });
 
-app.listen(3040, () => {
-  console.log("Serve started at prot 3040");
+app.listen(PORT, () => {
+  console.log("Serve started at port " + PORT + ".....");
 });
