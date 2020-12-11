@@ -1,7 +1,8 @@
 const express = require("express");
 const morgan = require("morgan");
 require("dotenv").config();
-const mongoose = require("mongoose");
+require("./helpers/init_mongodb");
+
 const createError = require("http-errors");
 const app = express();
 
@@ -11,39 +12,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 // variable
 const PORT = process.env.PORT || 3040;
-
-/**
- * initialize mangoDB
- *
- * */
-
-// local connection
-/*
-mongoose
-  .connect("mongodb://localhost:27017/tutorial_db", {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
-  .then(() => {
-    console.log("mongodb connected.......");
-  });
-  */
-
-//connecting to the online server
-//mongoose.connect();
-//mongodb+srv://rkimera94:<password>@cluster0.f8q5u.mongodb.net/<dbname>?retryWrites=true&w=majority
-mongoose
-  .connect(process.env.MONGO_DB_URL, {
-    dbName: process.env.DB_USER,
-    user: process.env.MONGO_DB_NAME,
-    pass: process.env.MONGO_DB_PASSWORD,
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
-  .then(() => {
-    console.log("mongodb connected.......");
-  })
-  .catch((err) => console.log(err));
 
 //register routes
 //for handling all routes GET,POST,ETC...
