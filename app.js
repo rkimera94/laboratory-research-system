@@ -1,10 +1,12 @@
 const express = require("express");
+const morgan = require("morgan");
 require("dotenv").config();
 const mongoose = require("mongoose");
 const createError = require("http-errors");
 const app = express();
 
 /// middleware
+app.use(morgan("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 // variable
@@ -54,9 +56,16 @@ app.all("/test/:id", (req, res) => {
   console.log(req.params);
   res.send(req.params);
 });
+/**
+ *
+ * routes
+ */
 const ReagentsRoute = require("./Routes/ReagentsRoute");
-
 app.use("/reagents", ReagentsRoute);
+// auth
+// auth route
+const authRoute = require("./Routes/AuthRoute");
+app.use("/auth", authRoute);
 // middle  ware to handle routes that are not handled by the routes
 /*
 app.use((req, res, next) => {
